@@ -4,4 +4,5 @@ export default {
   facebook: require('../asserts/facebook.png'),
   instagram: require('../asserts/instagram.png'),
   twitter: require('../asserts/twitter.png'),
+  heart: require('../asserts/heart.png'),
 };

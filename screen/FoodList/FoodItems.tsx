@@ -1,9 +1,7 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {colors} from '../../constants';
 import React from 'react';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {SafeAreaView} from 'react-native-safe-area-context';
-
 function _getColorFromStatus(status: String) {
   if (status.toLowerCase().trim() == 'opening now') {
     return colors.success;
@@ -57,7 +55,7 @@ const FoodItems = (props: any) => {
             </Text>
             <View></View>
             <View style={{flexDirection: 'row'}}>
-              {socialNetWorks[0]?.facebook != undefined ? (
+              {/* {socialNetWorks[0]?.facebook != undefined ? (
                 <MaterialIcons
                   name={'facebook'}
                   size={20}
@@ -65,13 +63,9 @@ const FoodItems = (props: any) => {
                 />
               ) : (
                 <></>
-              )}
-              {socialNetWorks[0]?.twitter != undefined ? (
-                <MaterialIcons
-                  name={'twitter'}
-                  size={20}
-                  style={styles.iconItem}
-                />
+              )} */}
+              {/* {socialNetWorks[0]?.twitter != undefined ? (
+                <Zocial name={'twitter'} size={20} style={styles.iconItem} />
               ) : (
                 <></>
               )}
@@ -82,8 +76,7 @@ const FoodItems = (props: any) => {
                   style={styles.iconItem}
                 />
               ) : (
-                <></>
-              )}
+                <></> */}
             </View>
             {/* {props.food?.socialNetWorks?.facebook ??
               (false && <Zocial name="facebook" size={20} />)} */}

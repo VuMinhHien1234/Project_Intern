@@ -11,7 +11,6 @@ import {
   Platform,
   Keyboard,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {StyleSheet} from 'react-native';
 
 function Register() {
@@ -44,6 +43,7 @@ function Register() {
         <Text style={styles.header_text}>Welcome!</Text>
         <Image source={images.computer} style={styles.header_image} />
       </View>
+
       <View
         style={{
           backgroundColor: 'white',
@@ -147,19 +147,21 @@ function Register() {
               <Text style={styles.text_button}>Register</Text>
             </TouchableOpacity>
           </View>
+
           <View style={styles.footer_container}>
             <View style={styles.footer_line} />
             <Text style={styles.footer_text}>Use other method</Text>
             <View style={styles.footer_line} />
           </View>
+
           <View style={styles.footer_icon}>
-            <Icon name="facebook" size={35} color="#3b5998" />
+            {/* <Icon name="facebook" size={35} color="#3b5998" /> */}
             <View
               style={{
                 width: 15,
               }}
             />
-            <Icon name="google" size={35} color="#db4a39" />
+            {/* <Icon name="google" size={35} color="#db4a39" /> */}
           </View>
         </View>
       )}

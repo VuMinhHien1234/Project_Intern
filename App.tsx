@@ -194,7 +194,14 @@
 
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {FoodList, Login, Register, WelcomeScreen} from './screen';
+import {
+  FoodList,
+  Login,
+  ProductGridView,
+  Register,
+  WelcomeScreen,
+} from './screen';
+import IconFacebook from './asserts/icons/ic_facebook';
 
 const App = () => {
   return (
@@ -202,7 +209,8 @@ const App = () => {
       style={{
         flex: 1,
       }}>
-      <WelcomeScreen />
+      {/* <ProductGridView /> */}
+      <IconFacebook />
     </View>
   );
 };

@@ -12,9 +12,6 @@ import {
 
 import FoodItems from './FoodItems';
 import {colors, images} from '../../constants';
-import {Icon} from 'react-native-vector-icons/Icon';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const FoodList = () => {
   const [foods, setFoods] = useState([
@@ -141,9 +138,9 @@ const FoodList = () => {
           onChangeText={setSearchText}
           style={styles.searchBox}>
           {' '}
-          <MaterialIcons name={'search'} size={25} />
+          {/* <MaterialIcons name={'search'} size={25} /> */}
         </TextInput>
-        <MaterialIcons name={'toc'} size={35}></MaterialIcons>
+        {/* <MaterialIcons name={'toc'} size={35}></MaterialIcons> */}
       </View>
 
       <View
