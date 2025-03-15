@@ -1,93 +1,77 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
-import {colors} from '../../constants';
 import React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {Text, View, Image, TouchableOpacity} from 'react-native';
+import {colors} from '../../constants';
+import IconFacebookt from '../../assets/icons/ic_facebook';
+import IconInstagram from '../../assets/icons/ic_instagram';
+import IconTwitter from '../../assets/icons/twitter';
+import {StyleSheet} from 'react-native';
+
 function _getColorFromStatus(status: String) {
-  if (status.toLowerCase().trim() == 'opening now') {
-    return colors.success;
-  } else if (status.toLowerCase().trim() == 'closing soon') {
-    return colors.alert;
-  } else {
-    return colors.warning;
-  }
+  /*
+    if(status.toLowerCase().trim() == 'opening now') {
+        return colors.success
+    } else if(status.toLowerCase().trim() == 'closing soon') {
+        return colors.alert
+    } else if(status.toLowerCase().trim() == 'comming soon') {
+        return colors.warning
+    }
+    return colors.success
+    */
+  return status.toLowerCase().trim() == 'opening now'
+    ? colors.success
+    : status.toLowerCase().trim() == 'closing soon'
+    ? colors.alert
+    : status.toLowerCase().trim() == 'comming soon'
+    ? colors.warning
+    : colors.success;
 }
-
-const FoodItems = (props: any) => {
-  let {name, price, socialNetWorks, status, url, website} = props.food;
-  //cloud.githubusercontent.com/assets/13091675/21242561/f16694c6-c2e2-11e6-8f35-a03ea7c493ea.png
-
-  https: console.log('food', props.food);
-  console.log('status', props.food.socialNetWorks);
-  console.log('socialNetWorks', socialNetWorks[0]);
-
+function FoodItems(props: any) {
+  let {name, price, socialNetworks, status, url, website} = props.food;
+  const {onPress} = props;
+  console.log(name);
+  console.log(price);
+  console.log(status);
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <Image
-          style={styles.images}
-          source={{
-            uri: url,
-          }}
-        />
-        <View style={styles.component}>
-          <Text style={styles.text}>{name}</Text>
-          <View
+    <TouchableOpacity onPress={onPress} style={styles.container}>
+      <Image
+        style={styles.image}
+        source={{
+          uri: url,
+        }}
+      />
+      <View style={styles.body}>
+        <Text style={styles.item_name}>{name}</Text>
+        <View style={styles.line} />
+
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.item_details}>Status: </Text>
+          <Text
             style={{
-              height: 1,
-              backgroundColor: 'black',
-            }}></View>
-          <View style={{flex: 1}}>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.text}>Status:</Text>
-              <Text
-                style={{
-                  marginLeft: 5,
-                  color: _getColorFromStatus(status),
-                  fontSize: 16,
-                }}>
-                {status.toUpperCase()}
-              </Text>
-            </View>
-            <Text style={styles.text}>Price: {price}$</Text>
-            <Text style={styles.text}>Food Type: Pizza</Text>
-            <Text style={styles.text} numberOfLines={2}>
-              website: {website}
-            </Text>
-            <View></View>
-            <View style={{flexDirection: 'row'}}>
-              {/* {socialNetWorks[0]?.facebook != undefined ? (
-                <MaterialIcons
-                  name={'facebook'}
-                  size={20}
-                  style={styles.iconItem}
-                />
-              ) : (
-                <></>
-              )} */}
-              {/* {socialNetWorks[0]?.twitter != undefined ? (
-                <Zocial name={'twitter'} size={20} style={styles.iconItem} />
-              ) : (
-                <></>
-              )}
-              {socialNetWorks[0]?.facebook != undefined ? (
-                <MaterialIcons
-                  name={'facebook'}
-                  size={20}
-                  style={styles.iconItem}
-                />
-              ) : (
-                <></> */}
-            </View>
-            {/* {props.food?.socialNetWorks?.facebook ??
-              (false && <Zocial name="facebook" size={20} />)} */}
-          </View>
+              color: _getColorFromStatus(status),
+              fontSize: 14,
+            }}>
+            {status.toUpperCase()}
+          </Text>
+        </View>
+        <Text style={styles.item_details}>Price: {price} $</Text>
+        <Text style={styles.item_details}>Food Type: Pizza</Text>
+        <Text style={styles.item_details}>Website: {website}</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+          }}>
+          {socialNetworks['facebook'] != undefined && (
+            <IconFacebookt style={styles.icon} />
+          )}
+          {socialNetworks['twitter'] != undefined && (
+            <IconTwitter style={styles.icon} />
+          )}
+          {socialNetworks['instagram'] != undefined && <IconInstagram />}
         </View>
       </View>
-    </SafeAreaView>
+    </TouchableOpacity>
   );
-};
-
-export default FoodItems;
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -96,22 +80,32 @@ const styles = StyleSheet.create({
     paddingStart: 10,
     flexDirection: 'row',
   },
-  images: {
+  image: {
     width: 100,
     height: 100,
-    // resizeMode: 'cover',
+    resizeMode: 'cover',
     borderRadius: 10,
+    marginRight: 15,
   },
-  component: {
+  body: {
     flex: 1,
-    marginRight: 20,
-    marginLeft: 10,
+    marginRight: 10,
   },
-  text: {
+  item_name: {
+    color: 'black',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  item_details: {
     color: colors.inactive,
-    fontSize: 16,
+    fontSize: 14,
   },
-  iconItem: {
-    marginHorizontal: 10,
+
+  line: {
+    height: 1,
+    backgroundColor: 'black',
   },
+  icon: {marginEnd: 5},
 });
+
+export default FoodItems;

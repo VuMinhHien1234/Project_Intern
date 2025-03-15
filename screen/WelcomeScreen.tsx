@@ -8,9 +8,10 @@ import {
   ImageBackground,
 } from 'react-native';
 import {IUButton} from '../components/index';
-import {images, icons} from '../constants';
-import {StyleSheet} from 'react-native';
 
+import {StyleSheet} from 'react-native';
+import {IMAGE} from '../assets/images';
+import IconFire from '../assets/icons/ic_fire';
 const WelcomeScreen = () => {
   const [accountTypes, setAccountTypes] = useState([
     {name: 'Influencer', isSelected: true},
@@ -21,14 +22,13 @@ const WelcomeScreen = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <ImageBackground
-        source={images.background}
+        source={IMAGE.img_background}
         resizeMode="cover"
         style={styles.background}>
         <View style={styles.header}>
-          <Image source={icons.fire} style={styles.iconFire} />
+          <IconFire />
           <Text style={styles.headerText}>This is Welcome</Text>
           <View style={{flex: 1}}></View>
-          <Image source={icons.question} style={styles.iconQuestion} />
         </View>
 
         <View style={styles.welcomeMessage}>

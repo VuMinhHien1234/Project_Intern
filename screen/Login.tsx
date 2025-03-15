@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {images, colors} from '../constants';
+import {colors} from '../constants';
 import {isValidEmail, isValidPassword} from '../utillies/Validation';
 import {
   StyleSheet,
@@ -13,6 +13,7 @@ import {
   Keyboard,
 } from 'react-native';
 import styles from './Login_styles';
+import {IMAGE} from '../assets/images';
 
 function Login() {
   const [keyboardIsShown, setKeyBoardIsShow] = useState(false);
@@ -48,7 +49,7 @@ function Login() {
         <Text style={styles.title}>Welcome Back!</Text>
         <Image
           tintColor={colors.primary}
-          source={images.computer}
+          source={IMAGE.img_computer}
           style={styles.images_title}
         />
       </View>

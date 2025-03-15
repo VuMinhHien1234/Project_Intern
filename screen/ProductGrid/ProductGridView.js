@@ -3,7 +3,6 @@ import {colors, images} from '../../constants';
 import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-
 const ProductGridView = () => {
   const [products, setProducts] = useState([
     {
@@ -161,7 +160,6 @@ const ProductGridView = () => {
             ))}
             <View
               style={{flexDirection: 'row', marginLeft: 15, marginBottom: 10}}>
-              {/* <HeartOutlined size={20} /> */}
               <Text style={{color: 'red', fontSize: 12, width: 50}}>
                 Saved for later
               </Text>

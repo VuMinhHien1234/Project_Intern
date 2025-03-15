@@ -1,231 +1,244 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
-  StyleSheet,
-  View,
   Text,
-  ScrollView,
-  FlatList,
+  View,
   Image,
   TouchableOpacity,
   TextInput,
+  FlatList,
+  SafeAreaView,
 } from 'react-native';
 
-import FoodItems from './FoodItems';
-import {colors, images} from '../../constants';
+import colors from '../../constants/colors';
 
-const FoodList = () => {
+import IconBar from '../../assets/icons/ic_bar';
+import FoodItems from './FoodItems';
+import {StyleSheet} from 'react-native';
+/**
+ - ListView from a map of objects
+ - FlatList
+ */
+function FoodList(props: any) {
+  //list of foods = state
   const [foods, setFoods] = useState([
     {
-      key: 1,
-      name: 'Bún',
-      url: 'https://png.pngtree.com/png-clipart/20201224/ourmid/pngtree-chinese-food-pork-feet-rice-hand-drawn-gourmet-png-image_2595710.jpg',
+      name: 'Paella Valenciana, with rabbit and chicken; and seafood paella',
+      url: 'https://www.bluristorante.com/wp-content/uploads/2019/03/9-Traditional-Italian-Food-Dishes-You-Will-Love-1080x700.jpg',
       status: 'Opening soon',
-      price: 5223.23,
-      website: 'https://eidttion.com.vn',
-      socialNetWorks: [
-        {
-          facebook: 'https://www.facebook.com/',
-          twitter: 'https://x.com/?lang=vi',
-          instargram: 'https://www.instagram.com/',
-        },
-      ],
+      price: 5223.56,
+      website: 'https://edition.cnn.com',
+      socialNetworks: {
+        facebook: 'https://www.facebook.com/duyvu91',
+        twitter: 'https://twitter.com/LostInBrittany',
+        instagram: 'https://www.instagram.com/nghiatran__/',
+      },
     },
     {
-      key: 2,
-      name: 'Nem',
-      url: 'https://png.pngtree.com/png-clipart/20201224/ourmid/pngtree-chinese-food-pork-feet-rice-hand-drawn-gourmet-png-image_2595710.jpg',
-      status: 'Opening now',
-      price: 5223.23,
-      website:
-        'https://www.flaticon.com/free-icon/twitter_3256013?term=twitter&page=1&position=3&origin=search&related_id=3256013',
-      socialNetWorks: [
-        {
-          twitter: 'https://x.com/?lang=vi',
-          instargram: 'https://www.instagram.com/',
-        },
-      ],
+      name: 'Gazpacho',
+      url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK4gjyk-VN438EkSnwwAcCRVgzW6F_MmeH-A&usqp=CAU',
+      status: 'Opening Now',
+      price: 1124.56,
+      website: 'https://huands.abc.com',
+      socialNetworks: {
+        twitter: 'https://twitter.com/LostInBrittany',
+        instagram: 'https://www.instagram.com/nghiatran__/',
+      },
     },
     {
-      key: 3,
-      name: 'Cơm',
-      url: 'https://spicyfoodstudio.com/wp-content/uploads/2023/03/chup-anh-do-an-20.jpg',
+      name: 'Gazpacho abcsd',
+      url: 'https://i.insider.com/5f340aab5af6cc63ab37bf14?width=1000&format=jpeg&auto=webp',
+      status: 'Opening Now',
+      price: 1124.56,
+      website: 'https://huands.abc.com',
+      socialNetworks: {
+        twitter: 'https://twitter.com/LostInBrittany',
+        instagram: 'https://www.instagram.com/nghiatran__/',
+      },
+    },
+    {
+      name: 'Pimientos de Padron',
+      url: 'https://www.thatsmags.com/image/view/201807/favorita-1.jpg',
       status: 'Closing soon',
-      price: 5223.23,
-      website:
-        'https://spicyfoodstudio.com/wp-content/uploads/2023/03/chup-anh-do-an-20.jpg',
-      socialNetWorks: [
-        {
-          facebook: 'https://www.facebook.com/',
-
-          instargram: 'https://www.instagram.com/',
-        },
-      ],
+      price: 2342.56,
+      website: 'https://www.uiuds.com',
+      socialNetworks: {
+        facebook: 'https://www.facebook.com/duyvu91',
+      },
     },
     {
-      key: 4,
-      name: 'Gà',
-      url: 'https://spicyfoodstudio.com/wp-content/uploads/2023/03/chup-anh-do-an-20.jpg',
-      status: 'Coming soon',
-      price: 5223.23,
-      website: 'https://eidttion.com.vn',
-      socialNetWorks: [
-        {
-          facebook: 'https://www.facebook.com/',
-          twitter: 'https://x.com/?lang=vi',
-          instargram: 'https://www.instagram.com/',
-        },
-      ],
+      name: 'Albondigas',
+      url: 'https://149366112.v2.pressablecdn.com/wp-content/uploads/2016/09/lead7.jpg',
+      status: 'Comming soon',
+      price: 2354.56,
+      website: 'https://edition.sabc.com',
+      socialNetworks: {
+        instagram: 'https://www.instagram.com/nghiatran__/',
+      },
     },
     {
-      key: 5,
-      name: 'Cá',
-      url: 'https://spicyfoodstudio.com/wp-content/uploads/2023/03/chup-anh-do-an-20.jpg',
-      status: 'Opening soon',
-      price: 5223.23,
-      website: 'https://eidttion.com.vn',
-      socialNetWorks: [
-        {
-          facebook: 'https://www.facebook.com/',
-        },
-      ],
+      name: 'Abc xyz',
+      url: 'https://blogs.biomedcentral.com/on-medicine/wp-content/uploads/sites/6/2019/09/iStock-1131794876.t5d482e40.m800.xtDADj9SvTVFjzuNeGuNUUGY4tm5d6UGU5tkKM0s3iPk-620x342.jpg',
+      status: 'Closing soon',
+      price: 5568.11,
+      website: 'https://www.food.com/',
+      socialNetworks: {
+        instagram: 'https://www.instagram.com/aeisinger/',
+      },
     },
   ]);
-
   const [categories, setCategories] = useState([
     {
       name: 'BBQ',
-      url: 'https://storage.timviec365.vn/timviec365/pictures/images/bbq-nghia-la-gi-1.jpg',
+      url: 'https://images.foody.vn/BlogsContents/46444498_1785582584898023_6834569445101273088_n(1).jpg',
     },
     {
-      name: 'BreakFirst',
-      url: 'https://www.giallozafferano.com/images/274-27477/Burrito_1200x800.jpg',
+      name: 'Breakfast',
+      url: 'https://herbalconcepts.com/wp-content/uploads/2019/02/6-burrito.jpeg',
     },
     {
-      name: 'Coffe',
-      url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq6SalYxbA8XS7ZbfNHTn-6O2yHqtjh82ASg&s',
+      name: 'Coffee',
+      url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR12qcjgUCbektxgkXY2cgWu_MfPCG3-eDfWruf19VOdo45be0Xzo6pUJTQx0hW4QrO_FU&usqp=CAU',
     },
     {
-      name: 'Tea',
-      url: 'https://storage.timviec365.vn/timviec365/pictures/images/bbq-nghia-la-gi-1.jpg',
+      name: 'Noodles',
+      url: 'https://static.toiimg.com/photo/52467119.cms',
     },
     {
-      name: 'Fish',
-      url: 'https://storage.timviec365.vn/timviec365/pictures/images/bbq-nghia-la-gi-1.jpg',
+      name: 'Hot dogs',
+      url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYNjeiTctEE8JCDkPBzQ9ymmBS1zMt3Mws-xo25gnbVFByCZ0NVuwiL2VZicgbS49jz7c&usqp=CAU',
     },
     {
-      name: 'Meat',
-      url: 'https://storage.timviec365.vn/timviec365/pictures/images/bbq-nghia-la-gi-1.jpg',
+      name: 'Dinner',
+      url: 'https://static.independent.co.uk/s3fs-public/thumbnails/image/2020/01/22/12/dinner-table.jpg?width=1200',
     },
     {
-      name: 'Milk',
-      url: 'https://storage.timviec365.vn/timviec365/pictures/images/bbq-nghia-la-gi-1.jpg',
+      name: 'Beverages',
+      url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHzVkc-LPuqE-DXVUkTznfkCadCqCYzcfoBA&usqp=CAU',
+    },
+    {
+      name: 'Dessert',
+      url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW08jAcTeGjQRVr9NAITfKF3nbRB5RPef2VA&usqp=CAU',
+    },
+    {
+      name: 'Wine',
+      url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUB_gxlZAGsGjHOwSU6mIc_L4X18yTAffJT-ocG6Y-5WqZSORqytoBaMkA5qcgeC2FeZA&usqp=CAU',
+    },
+    {
+      name: 'Barbecue',
+      url: 'https://m.media-amazon.com/images/I/81s-rWYsoKL._SX466_.jpg',
     },
   ]);
   const [searchText, setSearchText] = useState('');
-  const filteredFoods = () => {
-    return foods.filter(food =>
-      food.name.toLowerCase().includes(searchText.toLowerCase()),
+  const filteredFoods = () =>
+    foods.filter(eachFood =>
+      eachFood.name.toLowerCase().includes(searchText.toLowerCase()),
     );
-  };
-
   return (
     <View style={styles.container}>
-      <View style={{height: 60}}> </View>
-
-      <View style={styles.searchContainer}>
-        <TextInput
-          autoCorrect={false}
-          onChangeText={setSearchText}
-          style={styles.searchBox}>
-          {' '}
-          {/* <MaterialIcons name={'search'} size={25} /> */}
-        </TextInput>
-        {/* <MaterialIcons name={'toc'} size={35}></MaterialIcons> */}
+      <View>
+        <View style={{height: 60}}></View>
+        <View style={styles.header}>
+          <TextInput
+            autoCorrect={false}
+            onChangeText={text => {
+              setSearchText(text);
+            }}
+            style={styles.header_input}
+          />
+          <IconBar />
+        </View>
+        <View style={{height: 100}}>
+          <FlatList
+            horizontal
+            data={categories}
+            keyExtractor={item => item.name}
+            renderItem={({item}) => {
+              return (
+                <TouchableOpacity
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Image
+                    style={styles.image_header_item}
+                    source={{
+                      uri: item.url,
+                    }}
+                  />
+                  <Text style={styles.text_header_item_name}>{item.name}</Text>
+                </TouchableOpacity>
+              );
+            }}
+            style={{flex: 1}}></FlatList>
+          <View style={styles.line} />
+        </View>
+        <View>
+          {/* phần này em thử truyền component fooditems sang thì được Nhưng bên dưới
+           em không truyền được*/}
+          {foods.map(eachFood => (
+            <FoodItems food={eachFood} key={eachFood.name} />
+          ))}
+        </View>
       </View>
 
-      <View
-        style={{
-          height: 100,
-        }}>
+      {/* Phần này em chưa fix được. Em muốn thêm filteredFoods để lọc tìm kiếm. Khi debug thì bên fooditems em có nhận
+     được data nhưng màn hình lại không hiện lên item nào.*/}
+
+      {/* {filteredFoods().length > 0 ? (
         <FlatList
-          data={categories}
-          horizontal={true}
-          keyExtractor={item => item.name}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity onPress={() => {}} style={styles.categoryItem}>
-                <Image
-                  style={styles.categoryImage}
-                  source={{
-                    uri: item.url,
-                  }}
-                />
-                <Text style={styles.textItem}>{item.name}</Text>
-              </TouchableOpacity>
-            );
-          }}
-          style={{flex: 1}}>
-          {' '}
-        </FlatList>
-      </View>
-      {filteredFoods().length > 0 ? (
-        <FlatList
-          data={filteredFoods()}
-          renderItem={({item}) => <FoodItems food={item} />}
-          keyExtractor={item => item.key.toString()}
-          ItemSeparatorComponent={() => <View style={{height: 10}} />}
+          data={foods}
+          renderItem={({item}) => <FoodItems food={item} key={item.name} />}
+          keyExtractor={eachFood => eachFood.name}
         />
       ) : (
-        <View style={styles.notFound}>
-          <Text style={styles.textnotFound}>Not Found</Text>{' '}
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text
+            style={{
+              color: 'black',
+              fontSize: 14,
+            }}>
+            No food found
+          </Text>
         </View>
-      )}
+      )} */}
     </View>
   );
-};
+}
+
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: 'white'},
-  searchContainer: {
-    height: 50,
+  header: {
     marginHorizontal: 10,
     marginVertical: 10,
     flexDirection: 'row',
     alignItems: 'center',
   },
-  facebookicon: {
-    width: 40,
-    height: 40,
-    margin: 10,
-    resizeMode: 'contain',
-  },
-  searchBox: {
+  header_input: {
     backgroundColor: colors.inactive,
-    height: 50,
+    height: 40,
     flex: 1,
     marginEnd: 8,
     borderRadius: 5,
     opacity: 0.8,
-    paddingStart: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
+    paddingStart: 30,
   },
-  categoryItem: {justifyContent: 'center', alignItems: 'center'},
-  categoryImage: {
+  image_header_item: {
     width: 40,
     height: 40,
     resizeMode: 'cover',
     borderRadius: 25,
     margin: 10,
   },
-  textItem: {
+  text_header_item_name: {
     color: 'black',
-    fontSize: 16,
+    fontSize: 14,
   },
-  notFound: {flex: 1, justifyContent: 'center', alignItems: 'center'},
-  textnotFound: {
-    color: 'black',
-    fontSize: 20,
-  },
+  line: {height: 1, backgroundColor: colors.inactive},
 });
 
 export default FoodList;

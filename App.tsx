@@ -192,25 +192,15 @@
 
 // export default App;
 
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import {
-  FoodList,
-  Login,
-  ProductGridView,
-  Register,
-  WelcomeScreen,
-} from './screen';
-import IconFacebook from './asserts/icons/ic_facebook';
+import {FoodList} from './screen';
+import FoodItems from './screen/FoodList/FoodItems';
 
 const App = () => {
   return (
-    <View
-      style={{
-        flex: 1,
-      }}>
-      {/* <ProductGridView /> */}
-      <IconFacebook />
+    <View>
+      <FoodList />
     </View>
   );
 };
