@@ -194,13 +194,13 @@
 
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import {FoodList} from './screen';
+import {FoodList, ProductGridView} from './screen';
 import FoodItems from './screen/FoodList/FoodItems';
 
 const App = () => {
   return (
     <View>
-      <FoodList />
+      <ProductGridView />
     </View>
   );
 };
