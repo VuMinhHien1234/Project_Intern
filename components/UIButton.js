@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {TouchableOpacity, Text} from 'react-native';
 import {images, icons, colors} from '../constants';
+import IconHeart from '../assets/icons/ic_heart';
 function IUButton(props) {
   const {onPress, title, isSelected} = props;
   return (
@@ -17,17 +18,7 @@ function IUButton(props) {
         alignItems: 'center',
         backgroundColor: isSelected == true ? 'white' : null,
       }}>
-      {isSelected == true && (
-        <Icon
-          size={20}
-          name={'check-circle'}
-          style={{
-            color: 'green',
-            position: 'absolute',
-            left: 10,
-            top: 10,
-          }}></Icon>
-      )}
+      {isSelected == true && <IconHeart />}
       <Text
         style={{
           color: isSelected == true ? colors.primary : 'white',

@@ -12,19 +12,23 @@ import {IUButton} from '../components/index';
 import {StyleSheet} from 'react-native';
 import {IMAGE} from '../assets/images';
 import IconFire from '../assets/icons/ic_fire';
-const WelcomeScreen = () => {
+const WelcomeScreen = (props: any) => {
   const [accountTypes, setAccountTypes] = useState([
     {name: 'Influencer', isSelected: true},
     {name: 'Business', isSelected: true},
     {name: 'Individual', isSelected: false},
   ]);
-
+  //navigation
+  const {navigation, route} = props;
+  //function of navigate to/back
+  const {navigate, goBack} = navigation;
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <ImageBackground
-        source={IMAGE.img_background}
-        resizeMode="cover"
-        style={styles.background}>
+    <ImageBackground
+      source={IMAGE.img_background}
+      resizeMode="cover"
+      style={styles.background}>
+      <SafeAreaView>
+        <View style={{height: 40}}></View>
         <View style={styles.header}>
           <IconFire />
           <Text style={styles.headerText}>This is Welcome</Text>
@@ -58,29 +62,32 @@ const WelcomeScreen = () => {
         </View>
 
         <View style={styles.loginSection}>
-          <IUButton title={'Login'.toUpperCase()} />
+          <IUButton
+            onPress={() => {
+              navigate('Login');
+            }}
+            title={'Login'.toUpperCase()}
+          />
           <Text style={styles.registerText}>
-            Want to register a new Account
+            Want to register a new Account ?
           </Text>
-          <Text style={styles.registerText}>Register</Text>
+          <Text style={styles.registerText}>Register ?</Text>
         </View>
-      </ImageBackground>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    paddingTop: StatusBar.currentHeight,
-  },
   background: {
-    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   header: {
     flexDirection: 'row',
     height: 50,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   iconFire: {
     marginStart: 10,
@@ -88,7 +95,7 @@ const styles = StyleSheet.create({
     height: 30,
   },
   headerText: {
-    color: 'black',
+    color: 'white',
     marginLeft: 5,
   },
   iconQuestion: {
@@ -114,6 +121,7 @@ const styles = StyleSheet.create({
     flex: 40,
   },
   loginSection: {
+    color: 'black',
     flex: 20,
     justifyContent: 'center',
     paddingBottom: 20,

@@ -15,13 +15,22 @@ import {
 import styles from './Login_styles';
 import {IMAGE} from '../assets/images';
 
-function Login() {
+function Login(props: any) {
   const [keyboardIsShown, setKeyBoardIsShow] = useState(false);
   const [errorEmail, setErrorEmail] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('vuminh@gmail.com');
+  const [password, setPassword] = useState('wgwrgwH,gwgrwr');
 
+  const isValid = () =>
+    email.length > 0 &&
+    password.length > 0 &&
+    isValidEmail(email) == true &&
+    isValidPassword(password) == true;
+  //navigation
+  const {navigation, route} = props;
+  //function of navigate to/back
+  const {navigate, goBack} = navigation;
   useEffect(() => {
     //componentDidMount
     const showSubscription = Keyboard.addListener('keyboardDidShow', () =>
@@ -65,6 +74,7 @@ function Login() {
           placeholder="example@gmail.com"
           placeholderTextColor={colors.placeholder}
           autoCapitalize="none"
+          value={email}
           keyboardType="email-address"
         />
         {errorEmail !== '' && (
@@ -93,6 +103,7 @@ function Login() {
           secureTextEntry={true}
           placeholder="Enter your password"
           placeholderTextColor={colors.placeholder}
+          value={password}
         />
         {errorPassword !== '' && (
           <Text
@@ -107,7 +118,8 @@ function Login() {
       {!keyboardIsShown && (
         <View style={{alignItems: 'center', marginTop: 20}}>
           <TouchableOpacity
-            onPress={() => console.log('Email:', email, 'Password:', password)}
+            disabled={isValid() == false}
+            onPress={() => navigate('UITab')}
             style={styles.button}>
             <Text style={styles.text_button}>Login</Text>
           </TouchableOpacity>
