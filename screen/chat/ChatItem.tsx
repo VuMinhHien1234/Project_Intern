@@ -33,7 +33,19 @@ function ChatItem(props: any) {
         <Text style={{color: 'black', fontSize: 16, fontWeight: 'bold'}}>
           {name}
         </Text>
-        <Text style={{color: 'black', fontSize: 16}}>{firstMessage}</Text>
+        <Text style={{color: 'black', fontSize: 20}}>{firstMessage}</Text>
+      </View>
+      <View
+        style={{
+          flexDirection: 'column',
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'flex-end',
+        }}>
+        <Text style={{color: 'black', fontSize: 12, marginRight: 10}}>
+          {' '}
+          4 minutes ago
+        </Text>
       </View>
     </TouchableOpacity>
   );
