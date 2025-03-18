@@ -6,13 +6,14 @@
 
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {Setting, ProductGridView, FoodList} from '../screen';
+import {Setting, ProductGridView, FoodList, Profile, Chat} from '../screen';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {colors} from '../constants';
 import IconBar from '../assets/icons/ic_bar';
 import IconFire from '../assets/icons/ic_fire';
 import IconHeart from '../assets/icons/ic_heart';
 import IconTwitter from '../assets/icons/twitter';
+import IconInstagram from '../assets/icons/ic_instagram';
 const Tab = createBottomTabNavigator();
 const screenOptions = ({route}) => ({
   headerShown: false,
@@ -37,6 +38,10 @@ const screenOptions = ({route}) => ({
         <IconHeart />
       ) : screenName == 'Settings' ? (
         <IconTwitter />
+      ) : screenName == 'Profile' ? (
+        <IconInstagram />
+      ) : screenName == 'Chat' ? (
+        <IconTwitter />
       ) : (
         ''
       );
@@ -53,6 +58,11 @@ const UITab = (props: any) => {
         options={{tabBarLabel: 'Product'}}
       />
       <Tab.Screen
+        name="Chat"
+        component={Chat}
+        options={{tabBarLabel: 'Chat'}}
+      />
+      <Tab.Screen
         name="FoodList"
         component={FoodList}
         options={{tabBarLabel: 'Food'}}
@@ -61,6 +71,11 @@ const UITab = (props: any) => {
         name="Settings"
         component={Setting}
         options={{tabBarLabel: 'Setting'}}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{tabBarLabel: 'Profile'}}
       />
     </Tab.Navigator>
   );

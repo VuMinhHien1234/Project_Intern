@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {images, colors} from '../constants';
+import {colors} from '../constants';
 import {isValidEmail, isValidPassword} from '../utillies/Validation';
 import {
   Image,
@@ -12,6 +12,7 @@ import {
   Keyboard,
 } from 'react-native';
 import {StyleSheet} from 'react-native';
+import {IMAGE} from '../assets/images';
 
 function Register() {
   const [keyboardIsShown, setKeyboardIsShown] = useState(false);
@@ -41,7 +42,7 @@ function Register() {
       style={styles.container}>
       <View style={styles.head_logo}>
         <Text style={styles.header_text}>Welcome!</Text>
-        <Image source={images.computer} style={styles.header_image} />
+        <Image source={IMAGE.img_computer} style={styles.header_image} />
       </View>
 
       <View

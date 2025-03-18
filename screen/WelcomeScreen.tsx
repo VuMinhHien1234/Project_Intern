@@ -7,7 +7,7 @@ import {
   StatusBar,
   ImageBackground,
 } from 'react-native';
-import {IUButton} from '../components/index';
+import {UIButton} from '../components/index';
 
 import {StyleSheet} from 'react-native';
 import {IMAGE} from '../assets/images';
@@ -45,7 +45,7 @@ const WelcomeScreen = (props: any) => {
 
         <View style={styles.accountSelection}>
           {accountTypes.map(accountType => (
-            <IUButton
+            <UIButton
               key={accountType.name}
               onPress={() =>
                 setAccountTypes(
@@ -62,7 +62,7 @@ const WelcomeScreen = (props: any) => {
         </View>
 
         <View style={styles.loginSection}>
-          <IUButton
+          <UIButton
             onPress={() => {
               navigate('Login');
             }}

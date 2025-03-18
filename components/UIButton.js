@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {TouchableOpacity, Text} from 'react-native';
 import {images, icons, colors} from '../constants';
 import IconHeart from '../assets/icons/ic_heart';
-function IUButton(props) {
+function UIButton(props) {
   const {onPress, title, isSelected} = props;
   return (
     <TouchableOpacity
@@ -28,4 +28,4 @@ function IUButton(props) {
     </TouchableOpacity>
   );
 }
-export default IUButton;
+export default UIButton;
