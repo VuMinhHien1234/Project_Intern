@@ -3,7 +3,7 @@ import {ScrollView, Switch, View} from 'react-native';
 
 import {StyleSheet} from 'react-native';
 
-import {IUHeader} from '../components';
+import {UIHeader} from '../components';
 import {Text} from 'react-native';
 import {colors} from '../constants';
 import IconStar from '../assets/icons/ic_star';
@@ -14,7 +14,7 @@ const Setting = () => {
   const [isEnabledChangePassWord, setIsEnabledChangePassWord] = useState(true);
   return (
     <View style={{}}>
-      <IUHeader title={'Settings'} />
+      <UIHeader title={'Settings'} />
       <ScrollView>
         <View
           style={{

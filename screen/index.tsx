@@ -5,7 +5,8 @@ import FoodList from './FoodList/FoodList';
 import ProductGridView from './ProductGrid/ProductGridView';
 import Setting from './Settings';
 import Profile from './Profile';
-import Chat from './chat/Chat';
+import Chat from './Chat/Chat';
+import Messenger from './Messenger/Messenger';
 export {
   WelcomeScreen,
   Login,
@@ -15,4 +16,5 @@ export {
   Setting,
   Profile,
   Chat,
+  Messenger,
 };
