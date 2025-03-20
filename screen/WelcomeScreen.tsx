@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -6,12 +6,21 @@ import {
   View,
   StatusBar,
   ImageBackground,
+  TouchableOpacity,
 } from 'react-native';
 import {UIButton} from '../components/index';
-
+import {onAuthStateChanged, sendEmailVerification} from 'firebase/auth';
 import {StyleSheet} from 'react-native';
 import {IMAGE} from '../assets/images';
 import IconFire from '../assets/icons/ic_fire';
+import colors from '../constants/colors';
+import {
+  auth,
+  firebaseDatabase,
+  firebaseDatabaseRef,
+  firebaseSet,
+} from '../firebase/firebase';
+
 const WelcomeScreen = (props: any) => {
   const [accountTypes, setAccountTypes] = useState([
     {name: 'Influencer', isSelected: true},
@@ -22,6 +31,22 @@ const WelcomeScreen = (props: any) => {
   const {navigation, route} = props;
   //function of navigate to/back
   const {navigate, goBack} = navigation;
+
+  useEffect(() => {
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        const userId = user.uid;
+        //save data to firebase
+        debugger;
+        firebaseSet(firebaseDatabaseRef(firebaseDatabase, `users/${userId}`), {
+          email: user.email,
+          sendEmailVerification: user.emailVerified,
+          accessToken: user.accessToken,
+        });
+        navigate('UITab');
+      }
+    });
+  });
   return (
     <ImageBackground
       source={IMAGE.img_background}
@@ -71,7 +96,16 @@ const WelcomeScreen = (props: any) => {
           <Text style={styles.registerText}>
             Want to register a new Account ?
           </Text>
-          <Text style={styles.registerText}>Register ?</Text>
+
+          <TouchableOpacity
+            onPress={() => {
+              navigate('Register');
+            }}
+            style={{
+              padding: 5,
+            }}>
+            <Text style={styles.register_Text}>Register</Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </ImageBackground>
@@ -130,6 +164,12 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 12,
     alignSelf: 'center',
+  },
+  register_Text: {
+    color: colors.primary,
+    fontSize: 16,
+    alignSelf: 'center',
+    textDecorationLine: 'underline',
   },
 });
 

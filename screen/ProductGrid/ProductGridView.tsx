@@ -2,7 +2,15 @@ import {FlatList, StyleSheet, View} from 'react-native';
 
 import React, {useState} from 'react';
 import GridItem from './GridItem';
-
+type Product = {
+  url: string;
+  price: number;
+  productName: string;
+  specifications: Array<string>;
+  reivews: number;
+  star: number;
+  isSaved: boolean;
+};
 const ProductGridView = () => {
   const [products, setProducts] = useState([
     {
@@ -96,6 +104,23 @@ const ProductGridView = () => {
       isSaved: false,
     },
   ]);
+
+  const handlePress = (item: Product) => {
+    let clonedProducts = products.map(eachProduct => {
+      if (item.productName == eachProduct.productName) {
+        return {
+          ...eachProduct,
+          isSaved:
+            eachProduct.isSaved == false || eachProduct.isSaved == undefined
+              ? true
+              : false,
+        };
+      }
+      return eachProduct;
+    });
+    setProducts(clonedProducts);
+  };
+
   return (
     <View
       style={{
@@ -107,33 +132,12 @@ const ProductGridView = () => {
         data={products}
         numColumns={2}
         keyExtractor={goods => goods.productName}
-        renderItem={({item, index}) => (
-          <GridItem
-            item={item}
-            index={index}
-            onPress={() => {
-              let clonedProducts = products.map(eachProduct => {
-                if (item.productName == eachProduct.productName) {
-                  return {
-                    ...eachProduct,
-                    isSaved:
-                      eachProduct.isSaved == false ||
-                      eachProduct.isSaved == undefined
-                        ? true
-                        : false,
-                  };
-                }
-                return eachProduct;
-              });
-              setProducts(clonedProducts);
-            }}
-          />
+        renderItem={({item}) => (
+          //phan nay
+          <GridItem item={item} onPress={() => handlePress} />
         )}
       />
     </View>
-    // <View>
-    //   <Text style={{backgroundColor: 'red'}}>hello</Text>
-    // </View>
   );
 };
 

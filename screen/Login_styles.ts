@@ -9,6 +9,10 @@ item:{
     // backgroundColor:'red'
   
 },
+text_errorInput:{
+  color: 'red',
+  marginTop: 5,
+},
 keyboard:{
   flex: 1,
    backgroundColor: 'white',

@@ -18,7 +18,8 @@ import {StyleSheet} from 'react-native';
  - ListView from a map of objects
  - FlatList
  */
-function FoodList(props: any) {
+
+function FoodList() {
   //list of foods = state
   const [foods, setFoods] = useState([
     {
@@ -154,11 +155,7 @@ function FoodList(props: any) {
             keyExtractor={item => item.name}
             renderItem={({item}) => {
               return (
-                <TouchableOpacity
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
+                <TouchableOpacity style={styles.item_flatList_categories}>
                   <Image
                     style={styles.image_header_item}
                     source={{
@@ -173,16 +170,11 @@ function FoodList(props: any) {
           <View style={styles.line} />
         </View>
         <View>
-          {/* phần này em thử truyền component fooditems sang thì được Nhưng bên dưới
-           em không truyền được*/}
           {foods.map(eachFood => (
-            <FoodItems food={eachFood} key={eachFood.name} />
+            <FoodItems food={eachFood} onPress={() => {}} />
           ))}
         </View>
       </View>
-
-      {/* Phần này em chưa fix được. Em muốn thêm filteredFoods để lọc tìm kiếm. Khi debug thì bên fooditems em có nhận
-     được data nhưng màn hình lại không hiện lên item nào.*/}
 
       {/* {filteredFoods().length > 0 ? (
         <FlatList
@@ -216,6 +208,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginVertical: 10,
     flexDirection: 'row',
+    alignItems: 'center',
+  },
+  item_flatList_categories: {
+    justifyContent: 'center',
     alignItems: 'center',
   },
   header_input: {

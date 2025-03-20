@@ -25,7 +25,27 @@ function _getColorFromStatus(status: String) {
     ? colors.warning
     : colors.success;
 }
-function FoodItems(props: any) {
+
+type Props = {
+  food: FoodProps;
+  onPress: () => void;
+};
+type SocialNetworks = {
+  facebook?: string;
+  instagram?: string;
+  twitter?: string;
+};
+
+type FoodProps = {
+  name: string;
+  price: number;
+  socialNetworks: SocialNetworks;
+  status: string;
+  url: string;
+  website: string;
+};
+
+function FoodItems(props: Props) {
   let {name, price, socialNetworks, status, url, website} = props.food;
   const {onPress} = props;
   console.log(name);
@@ -33,16 +53,10 @@ function FoodItems(props: any) {
   console.log(status);
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
-      <Image
-        style={styles.image}
-        source={{
-          uri: url,
-        }}
-      />
+      <Image style={styles.image} source={{uri: url}} />
       <View style={styles.body}>
         <Text style={styles.item_name}>{name}</Text>
         <View style={styles.line} />
-
         <View style={{flexDirection: 'row'}}>
           <Text style={styles.item_details}>Status: </Text>
           <Text

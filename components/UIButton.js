@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {TouchableOpacity, Text} from 'react-native';
-import {images, icons, colors} from '../constants';
+import {colors} from '../constants';
 import IconHeart from '../assets/icons/ic_heart';
+
 function UIButton(props) {
   const {onPress, title, isSelected} = props;
   return (
@@ -16,6 +17,7 @@ function UIButton(props) {
         marginHorizontal: 15,
         justifyContent: 'center',
         alignItems: 'center',
+
         backgroundColor: isSelected == true ? 'white' : null,
       }}>
       {isSelected == true && <IconHeart />}

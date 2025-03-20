@@ -11,6 +11,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Keyboard,
+  Alert,
 } from 'react-native';
 import styles from './Login_styles';
 import {IMAGE} from '../assets/images';
@@ -46,9 +47,17 @@ function Login(props: any) {
     };
   }, []);
 
-  function alert(arg0: string): void {
-    throw new Error('Function not implemented.');
-  }
+  const handleEmailFormat = (text: string) => {
+    setErrorEmail(isValidEmail(text) ? '' : 'Invalid email format');
+    setEmail(text);
+  };
+
+  const handlePasswordFormat = (text: string) => {
+    setErrorPassword(
+      isValidPassword(text) ? '' : 'Password must be at least 3 characters',
+    );
+    setPassword(text);
+  };
 
   return (
     <KeyboardAvoidingView
@@ -66,10 +75,7 @@ function Login(props: any) {
       <View style={styles.space_text}>
         <Text style={styles.title_description}>Email:</Text>
         <TextInput
-          onChangeText={text => {
-            setErrorEmail(isValidEmail(text) ? '' : 'Invalid email format');
-            setEmail(text);
-          }}
+          onChangeText={handleEmailFormat}
           style={styles.input_text}
           placeholder="example@gmail.com"
           placeholderTextColor={colors.placeholder}
@@ -78,27 +84,14 @@ function Login(props: any) {
           keyboardType="email-address"
         />
         {errorEmail !== '' && (
-          <Text
-            style={{
-              color: 'red',
-              marginTop: 5,
-            }}>
-            {errorEmail}
-          </Text>
+          <Text style={styles.text_errorInput}>{errorEmail}</Text>
         )}
       </View>
 
       <View style={{marginBottom: 15}}>
         <Text style={styles.title_description}>Password:</Text>
         <TextInput
-          onChangeText={text => {
-            setErrorPassword(
-              isValidPassword(text)
-                ? ''
-                : 'Password must be at least 3 characters',
-            );
-            setPassword(text);
-          }}
+          onChangeText={handlePasswordFormat}
           style={styles.input_text}
           secureTextEntry={true}
           placeholder="Enter your password"
@@ -106,13 +99,7 @@ function Login(props: any) {
           value={password}
         />
         {errorPassword !== '' && (
-          <Text
-            style={{
-              color: 'red',
-              marginTop: 5,
-            }}>
-            {errorPassword}
-          </Text>
+          <Text style={styles.text_errorInput}>{errorPassword}</Text>
         )}
       </View>
       {!keyboardIsShown && (
@@ -125,7 +112,7 @@ function Login(props: any) {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => alert('Register pressed')}
+            onPress={() => Alert.alert('Register pressed')}
             style={styles.space_text}>
             <Text style={styles.title_description}>New user? Register now</Text>
           </TouchableOpacity>

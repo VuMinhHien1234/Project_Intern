@@ -1,3 +1,5 @@
 import UIButton from './UIButton';
 import UIHeader from './UIHeader';
-export {UIButton, UIHeader};
+import SettingItem from './SettingItem';
+import SwitchItem from './SwitchItem';
+export {UIButton, UIHeader, SettingItem, SwitchItem};

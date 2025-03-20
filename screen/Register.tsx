@@ -10,31 +10,79 @@ import {
   KeyboardAvoidingView,
   Platform,
   Keyboard,
+  Alert,
 } from 'react-native';
 import {StyleSheet} from 'react-native';
 import {IMAGE} from '../assets/images';
+import {
+  auth,
+  firebaseDatabase,
+  firebaseDatabaseRef,
+  firebaseSet,
+} from '../firebase/firebase';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  sendEmailVerification,
+} from 'firebase/auth';
+import IconFacebookt from '../assets/icons/ic_facebook';
+import IconTwitter from '../assets/icons/twitter';
 
-function Register() {
+function Register(props: any) {
   const [keyboardIsShown, setKeyboardIsShown] = useState(false);
-  const [errorEmail, setErrorEmail] = useState('');
-  const [errorPassword, setErrorPassword] = useState('');
-  const [errorRetypePassword, setErrorRetypePassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [retypePassword, setRetypePassword] = useState('');
+  const [errorEmail, setErrorEmail] = useState('Error Email');
+  const [errorPassword, setErrorPassword] = useState('Error PassWord');
+  const [errorRetypePassword, setErrorRetypePassword] = useState(
+    'Error RetypePassWord',
+  );
+  const [email, setEmail] = useState('vuminh@gmail.com');
+  const [password, setPassword] = useState('Hien123456');
+  const [retypePassword, setRetypePassword] = useState('Hien123456');
 
   useEffect(() => {
+    const xx = auth;
     const showSubscription = Keyboard.addListener('keyboardDidShow', () =>
       setKeyboardIsShown(true),
     );
     const hideSubscription = Keyboard.addListener('keyboardDidHide', () =>
       setKeyboardIsShown(false),
     );
+
     return () => {
       showSubscription.remove();
       hideSubscription.remove();
     };
   }, []);
+
+  const isValid = () =>
+    email.length > 0 &&
+    password.length > 0 &&
+    isValidEmail(email) == true &&
+    isValidPassword(password) == true &&
+    password == retypePassword;
+
+  //navigation
+  const {navigation, route} = props;
+  //function of navigate to/back
+  const {navigate, goBack} = navigation;
+
+  const handleEmailFormat = (text: string) => {
+    setErrorEmail(isValidEmail(text) ? '' : 'Invalid email format');
+    setEmail(text);
+  };
+
+  const handlePasswordFormat = (text: string) => {
+    setErrorPassword(
+      isValidPassword(text) ? '' : 'Password must be at least 3 characters',
+    );
+    setPassword(text);
+  };
+
+  const handleRetypePassword = (text: string) => {
+    setErrorRetypePassword(text === password ? '' : 'Passwords do not match');
+    setRetypePassword(text);
+  };
 
   return (
     <KeyboardAvoidingView
@@ -57,10 +105,7 @@ function Register() {
           }}>
           <Text style={styles.title_text}>Email:</Text>
           <TextInput
-            onChangeText={text => {
-              setErrorEmail(isValidEmail(text) ? '' : 'Invalid email format');
-              setEmail(text);
-            }}
+            onChangeText={handleEmailFormat}
             style={styles.input_text}
             placeholder="example@gmail.com"
             placeholderTextColor={colors.placeholder}
@@ -68,13 +113,7 @@ function Register() {
             keyboardType="email-address"
           />
           {errorEmail !== '' && (
-            <Text
-              style={{
-                color: 'red',
-                marginTop: 5,
-              }}>
-              {errorEmail}
-            </Text>
+            <Text style={styles.error_text}>{errorEmail}</Text>
           )}
         </View>
 
@@ -84,14 +123,7 @@ function Register() {
           }}>
           <Text style={styles.title_text}>Password:</Text>
           <TextInput
-            onChangeText={text => {
-              setErrorPassword(
-                isValidPassword(text)
-                  ? ''
-                  : 'Password must be at least 3 characters',
-              );
-              setPassword(text);
-            }}
+            onChangeText={handlePasswordFormat}
             style={styles.input_text}
             secureTextEntry={true}
             placeholder="Enter your password"
@@ -101,18 +133,11 @@ function Register() {
             <Text style={styles.error_text}>{errorPassword}</Text>
           )}
         </View>
-        <View
-          style={{
-            marginBottom: 15,
-          }}>
+
+        <View style={styles.retype_container}>
           <Text style={styles.title_text}>Retype Password:</Text>
           <TextInput
-            onChangeText={text => {
-              setErrorRetypePassword(
-                text === password ? '' : 'Passwords do not match',
-              );
-              setRetypePassword(text);
-            }}
+            onChangeText={handleRetypePassword}
             style={styles.input_text}
             secureTextEntry={true}
             placeholder="Re-enter your password"
@@ -126,23 +151,34 @@ function Register() {
 
       {!keyboardIsShown && (
         <View style={styles.container_not_keyboard}>
-          <View
-            style={{
-              alignItems: 'center',
-              marginBottom: 15,
-            }}>
+          <View style={styles.register_container}>
             <TouchableOpacity
               onPress={() => {
-                if (
-                  !errorEmail &&
-                  !errorPassword &&
-                  !errorRetypePassword &&
-                  email &&
-                  password &&
-                  retypePassword
-                ) {
-                  console.log('Email:', email, 'Password:', password);
-                }
+                createUserWithEmailAndPassword(auth, email, password)
+                  .then(userCredential => {
+                    const user = userCredential.user;
+                    debugger;
+                    sendEmailVerification(user).then(() => {
+                      console.log('Email verification send');
+                    });
+
+                    firebaseSet(
+                      firebaseDatabaseRef(
+                        firebaseDatabase,
+                        `users/${user.uid}`,
+                      ),
+                      {
+                        email: user.email,
+                        sendEmailVerification: user.emailVerified,
+                        accessToken: user.accessToken,
+                      },
+                    );
+                    navigate('UITab');
+                  })
+                  .catch(error => {
+                    debugger;
+                    Alert.alert(`Cannot show ${error.messenge}`);
+                  });
               }}
               style={styles.button}>
               <Text style={styles.text_button}>Register</Text>
@@ -156,19 +192,16 @@ function Register() {
           </View>
 
           <View style={styles.footer_icon}>
-            {/* <Icon name="facebook" size={35} color="#3b5998" /> */}
-            <View
-              style={{
-                width: 15,
-              }}
-            />
-            {/* <Icon name="google" size={35} color="#db4a39" /> */}
+            <IconFacebookt />
+            <View style={{width: 15}} />
+            <IconTwitter />
           </View>
         </View>
       )}
     </KeyboardAvoidingView>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -199,6 +232,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 5,
   },
+  retype_container: {
+    marginBottom: 15,
+  },
   input_text: {
     borderWidth: 1,
     borderColor: colors.primary,
@@ -228,6 +264,10 @@ const styles = StyleSheet.create({
   text_button: {
     color: 'white',
     fontSize: 18,
+  },
+  register_container: {
+    alignItems: 'center',
+    marginBottom: 15,
   },
   footer_container: {
     flexDirection: 'row',

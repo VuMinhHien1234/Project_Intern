@@ -10,13 +10,14 @@ import {colors} from '../constants';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
-const Profile = (props: any) => {
+
+const Profile = () => {
   //   UserRepository.getUserDetail();
   const [user, setUser] = useState({});
   const [populations, setPopulations] = useState({});
+
   useEffect(() => {
     UserRepository.getUserDetail().then(responseUser => setUser(responseUser));
-
     PopulationRepository.getPopulation({
       drilldowns: 'Nation',
       measures: 'Population',

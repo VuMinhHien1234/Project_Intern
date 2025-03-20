@@ -2,7 +2,11 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import IconStar from '../../assets/icons/ic_star';
 import {colors} from '../../constants';
-const FiveStars = (props: any) => {
+type Props = {
+  numberOfStars: number;
+};
+
+const FiveStars = (props: Props) => {
   const {numberOfStars} = props;
   return (
     <View style={{flexDirection: 'row'}}>

@@ -6,16 +6,8 @@ const UIHeader = (props: any) => {
   const {title, leftIcon, rightIcon, onPressLeftIcon, onPressRightIcon} = props;
   return (
     <View>
-      <View style={{height: 40, backgroundColor: 'black'}}></View>
-
-      <View
-        style={{
-          height: 55,
-          backgroundColor: colors.primary,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}>
+      <View style={styles.padding_top}></View>
+      <View style={styles.body}>
         {/* Left icon */}
         {leftIcon ? (
           onPressLeftIcon ? (
@@ -28,15 +20,7 @@ const UIHeader = (props: any) => {
         ) : (
           <></>
         )}
-        <Text
-          style={{
-            fontSize: 16,
-            textAlign: 'center',
-            lineHeight: 45,
-            color: 'white',
-          }}>
-          {title}
-        </Text>
+        <Text style={styles.title}>{title}</Text>
         {/* Right icon */}
         {rightIcon ? (
           onPressRightIcon ? (
@@ -56,4 +40,19 @@ const UIHeader = (props: any) => {
 
 export default UIHeader;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  padding_top: {height: 40, backgroundColor: 'black'},
+  body: {
+    height: 55,
+    backgroundColor: colors.primary,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 16,
+    textAlign: 'center',
+    lineHeight: 45,
+    color: 'white',
+  },
+});
