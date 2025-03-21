@@ -133,7 +133,6 @@ const ProductGridView = () => {
         numColumns={2}
         keyExtractor={goods => goods.productName}
         renderItem={({item}) => (
-          //phan nay
           <GridItem item={item} onPress={() => handlePress} />
         )}
       />

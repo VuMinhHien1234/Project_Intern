@@ -6,6 +6,9 @@ import {
   getDatabase,
   ref as firebaseDatabaseRef,
   set as firebaseSet,
+  child,
+  get,
+  onValue,
 } from 'firebase/database';
 import {initializeApp} from 'firebase/app';
 
@@ -22,4 +25,12 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const firebaseDatabase = getDatabase();
 
-export {auth, firebaseDatabase, firebaseSet, firebaseDatabaseRef};
+export {
+  auth,
+  firebaseDatabase,
+  firebaseSet,
+  firebaseDatabaseRef,
+  child,
+  get,
+  onValue, //reload when db change
+};

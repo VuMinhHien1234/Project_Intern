@@ -23,6 +23,11 @@ const Setting = (props: any) => {
   const [isEnabledLockApp, setIsEnabledLockApp] = useState(true);
   const [isUseFingerPrint, setUseFingerPrint] = useState(false);
   const [isEnabledChangePassWord, setIsEnabledChangePassWord] = useState(true);
+
+  const handldeSignout = () => {
+    auth.signOut();
+    navigation.dispatch(StackActions.popToTop());
+  };
   return (
     <View style={{}}>
       <UIHeader title={'Settings'} />
@@ -55,11 +60,7 @@ const Setting = (props: any) => {
           title={`Email`}
           optionalTitle={`Production`}
         />
-        <TouchableOpacity
-          onPress={() => {
-            auth.signOut();
-            navigation.dispatch(StackActions.popToTop());
-          }}>
+        <TouchableOpacity onPress={handldeSignout}>
           <SettingItem
             icon={<IconStar />}
             title={`Sign out`}

@@ -15,8 +15,10 @@ import {
 } from 'react-native';
 import styles from './Login_styles';
 import {IMAGE} from '../assets/images';
+import {signInWithEmailAndPassword} from 'firebase/auth';
+import {auth} from '../firebase/firebase';
 
-function Login(props: any) {
+const Login = (props: any) => {
   const [keyboardIsShown, setKeyBoardIsShow] = useState(false);
   const [errorEmail, setErrorEmail] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
@@ -57,6 +59,18 @@ function Login(props: any) {
       isValidPassword(text) ? '' : 'Password must be at least 3 characters',
     );
     setPassword(text);
+  };
+
+  const handlesignIn = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        const user = userCredential.user;
+
+        navigate('UITab');
+      })
+      .catch(error => {
+        Alert.alert(`Cannot signin, error: ${error.message}`);
+      });
   };
 
   return (
@@ -106,7 +120,7 @@ function Login(props: any) {
         <View style={{alignItems: 'center', marginTop: 20}}>
           <TouchableOpacity
             disabled={isValid() == false}
-            onPress={() => navigate('UITab')}
+            onPress={handlesignIn}
             style={styles.button}>
             <Text style={styles.text_button}>Login</Text>
           </TouchableOpacity>
@@ -120,65 +134,5 @@ function Login(props: any) {
       )}
     </KeyboardAvoidingView>
   );
-}
-
-// const styles = StyleSheet.create({
-// item:{
-
-//     justifyContent:'center',
-//     alignItems:'center',
-//     // backgroundColor:'red'
-
-// },
-// keyboard:{
-//   flex: 1,
-//    backgroundColor: 'white',
-//     paddingHorizontal: 20,
-//      justifyContent: 'center'
-// },
-
-// title:{
-//   color: 'black',
-//   fontSize: 22,
-//   fontWeight: 'bold'
-// },
-// images_title:{
-
-//     width: 100,
-//     height: 100,
-//     marginTop: 10
-
-// },
-// title_description:{
-//   color: colors.primary,
-//   fontSize: 16,
-//   marginBottom: 5
-// },
-// space_text:{
-//    marginBottom: 15
-// },
-// input_text:{
-
-//     borderWidth: 1,
-//     borderColor: colors.primary,
-//     borderRadius: 10,
-//     padding: 10,
-//     color: 'black'
-
-// },
-// button:{
-
-//     backgroundColor: colors.primary,
-//     paddingVertical: 12,
-//     paddingHorizontal: 50,
-//     borderRadius: 20
-
-// },
-// text_button:{
-//   color: 'white',
-//   fontSize: 18
-// }
-
-// })
-
+};
 export default Login;

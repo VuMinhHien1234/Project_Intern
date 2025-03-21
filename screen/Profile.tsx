@@ -13,7 +13,17 @@ const screenHeight = Dimensions.get('window').height;
 
 const Profile = () => {
   //   UserRepository.getUserDetail();
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    email: 'not avaiable',
+    dateOfBirth: new Date(),
+    gender: 'not avaiable',
+    userId: 'not avaiable',
+    address: 'not avaiable',
+    username: 'not avaiable',
+    url: 'not avaiable',
+    phone: 'not avaiable',
+    registeredDate: new Date(),
+  });
   const [populations, setPopulations] = useState({});
 
   useEffect(() => {
@@ -41,13 +51,12 @@ const Profile = () => {
     backgroundGradientTo: 'white',
     backgroundGradientToOpacity: 0.5,
     color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-    strokeWidth: 2, // optional, default 3
+    strokeWidth: 2,
     barPercentage: 0.5,
-    useShadowColorFromDataset: false, // optional
+    useShadowColorFromDataset: false,
   };
   return (
     <View style={{flex: 1}}>
-      {/* <Text>{email}</Text> */}
       <Text>{convertDateTimeToString(dateOfBirth)}</Text>
       <Text>{JSON.stringify(populations)}</Text>
       <View>

@@ -29,7 +29,7 @@ import {
 import IconFacebookt from '../assets/icons/ic_facebook';
 import IconTwitter from '../assets/icons/twitter';
 
-function Register(props: any) {
+const Register = (props: any) => {
   const [keyboardIsShown, setKeyboardIsShown] = useState(false);
   const [errorEmail, setErrorEmail] = useState('Error Email');
   const [errorPassword, setErrorPassword] = useState('Error PassWord');
@@ -84,6 +84,30 @@ function Register(props: any) {
     setRetypePassword(text);
   };
 
+  const hanldeRegister = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(userCredential => {
+        const user = userCredential.user;
+        debugger;
+        sendEmailVerification(user).then(() => {
+          console.log('Email verification send');
+        });
+
+        firebaseSet(
+          firebaseDatabaseRef(firebaseDatabase, `users/${user.uid}`),
+          {
+            email: user.email,
+            sendEmailVerification: user.emailVerified,
+          },
+        );
+        navigate('UITab');
+      })
+      .catch(error => {
+        debugger;
+        Alert.alert(`Cannot show ${error.messenge}`);
+      });
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -93,16 +117,8 @@ function Register(props: any) {
         <Image source={IMAGE.img_computer} style={styles.header_image} />
       </View>
 
-      <View
-        style={{
-          backgroundColor: 'white',
-          padding: 20,
-          borderRadius: 10,
-        }}>
-        <View
-          style={{
-            marginBottom: 15,
-          }}>
+      <View style={styles.upper_notKeyboard}>
+        <View style={styles.box}>
           <Text style={styles.title_text}>Email:</Text>
           <TextInput
             onChangeText={handleEmailFormat}
@@ -117,10 +133,7 @@ function Register(props: any) {
           )}
         </View>
 
-        <View
-          style={{
-            marginBottom: 15,
-          }}>
+        <View style={styles.box}>
           <Text style={styles.title_text}>Password:</Text>
           <TextInput
             onChangeText={handlePasswordFormat}
@@ -152,35 +165,7 @@ function Register(props: any) {
       {!keyboardIsShown && (
         <View style={styles.container_not_keyboard}>
           <View style={styles.register_container}>
-            <TouchableOpacity
-              onPress={() => {
-                createUserWithEmailAndPassword(auth, email, password)
-                  .then(userCredential => {
-                    const user = userCredential.user;
-                    debugger;
-                    sendEmailVerification(user).then(() => {
-                      console.log('Email verification send');
-                    });
-
-                    firebaseSet(
-                      firebaseDatabaseRef(
-                        firebaseDatabase,
-                        `users/${user.uid}`,
-                      ),
-                      {
-                        email: user.email,
-                        sendEmailVerification: user.emailVerified,
-                        accessToken: user.accessToken,
-                      },
-                    );
-                    navigate('UITab');
-                  })
-                  .catch(error => {
-                    debugger;
-                    Alert.alert(`Cannot show ${error.messenge}`);
-                  });
-              }}
-              style={styles.button}>
+            <TouchableOpacity onPress={hanldeRegister} style={styles.button}>
               <Text style={styles.text_button}>Register</Text>
             </TouchableOpacity>
           </View>
@@ -200,7 +185,7 @@ function Register(props: any) {
       )}
     </KeyboardAvoidingView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -221,6 +206,14 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 22,
     fontWeight: 'bold',
+  },
+  upper_notKeyboard: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+  },
+  box: {
+    marginBottom: 15,
   },
   header_image: {
     width: 100,

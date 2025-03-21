@@ -45,7 +45,7 @@ type FoodProps = {
   website: string;
 };
 
-function FoodItems(props: Props) {
+const FoodItems = (props: Props) => {
   let {name, price, socialNetworks, status, url, website} = props.food;
   const {onPress} = props;
   console.log(name);
@@ -85,7 +85,7 @@ function FoodItems(props: Props) {
       </View>
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

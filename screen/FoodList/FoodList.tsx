@@ -19,7 +19,7 @@ import {StyleSheet} from 'react-native';
  - FlatList
  */
 
-function FoodList() {
+const FoodList = () => {
   //list of foods = state
   const [foods, setFoods] = useState([
     {
@@ -158,9 +158,7 @@ function FoodList() {
                 <TouchableOpacity style={styles.item_flatList_categories}>
                   <Image
                     style={styles.image_header_item}
-                    source={{
-                      uri: item.url,
-                    }}
+                    source={{uri: item.url}}
                   />
                   <Text style={styles.text_header_item_name}>{item.name}</Text>
                 </TouchableOpacity>
@@ -175,32 +173,9 @@ function FoodList() {
           ))}
         </View>
       </View>
-
-      {/* {filteredFoods().length > 0 ? (
-        <FlatList
-          data={foods}
-          renderItem={({item}) => <FoodItems food={item} key={item.name} />}
-          keyExtractor={eachFood => eachFood.name}
-        />
-      ) : (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text
-            style={{
-              color: 'black',
-              fontSize: 14,
-            }}>
-            No food found
-          </Text>
-        </View>
-      )} */}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: 'white'},

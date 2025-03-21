@@ -16,6 +16,7 @@ const MessengerItem = (props: any) => {
 
   console.log(url);
   return isSender == false ? (
+    //isSender : True
     <TouchableOpacity onPress={onPress} style={styles.container_sender}>
       {showUrl == true ? (
         <Image source={{uri: url}} style={styles.image} />
@@ -27,11 +28,10 @@ const MessengerItem = (props: any) => {
       </View>
     </TouchableOpacity>
   ) : (
-    //isSender : True
     //is Sender:False
     <TouchableOpacity onPress={onPress} style={styles.container_notIsSender}>
       <View style={styles.view_messageReceive}>
-        <View style={{width: 40}}></View>
+        <View style={styles.adjust_box}></View>
         <Text style={styles.text_message}>{messenger}</Text>
       </View>
       {showUrl == true ? (
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
+  adjust_box: {width: 40},
   not_imageSender: {width: 50, height: 50, marginRight: 15, marginStart: 10},
   not_imageRecieve: {width: 50, height: 50},
   text_message: {
