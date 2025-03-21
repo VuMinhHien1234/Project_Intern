@@ -268,14 +268,7 @@ const WelcomeScreen = (props: any) => {
           {accountTypes.map(accountType => (
             <UIButton
               key={accountType.name}
-              onPress={() =>
-                setAccountTypes(
-                  accountTypes.map(prev => ({
-                    ...prev,
-                    isSelected: prev.name === accountType.name,
-                  })),
-                )
-              }
+              onPress={handleAccountSelection}
               title={accountType.name}
               isSelected={accountType.isSelected}
             />
