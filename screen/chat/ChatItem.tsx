@@ -86,10 +86,6 @@
 // export default ChatItem;
 import React from 'react';
 import {Text, View, Image, TouchableOpacity} from 'react-native';
-import {colors} from '../../constants';
-import IconFacebookt from '../../assets/icons/ic_facebook';
-import IconInstagram from '../../assets/icons/ic_instagram';
-import IconTwitter from '../../assets/icons/twitter';
 import {StyleSheet} from 'react-native';
 type Props = {
   user: User;

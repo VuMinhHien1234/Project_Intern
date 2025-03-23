@@ -180,21 +180,15 @@
 // export default Chat;
 
 // const styles = StyleSheet.create({});
-import {
-  Alert,
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+
+import {Alert, FlatList, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {UIHeader} from '../../components';
 import IconBar from '../../assets/icons/ic_bar';
 import IconFacebookt from '../../assets/icons/ic_facebook';
 import ChatItem from './ChatItem';
+
 const Chat = (props: any) => {
-  const {numberOfStars} = props;
   const [users, setUsers] = useState([
     {
       url: 'https://randomuser.me/api/portraits/men/70.jpg',
@@ -259,6 +253,10 @@ const Chat = (props: any) => {
   ]);
   const {navigation, route} = props;
   const {navigate, goBack} = navigation;
+  const handle_icon = () => {
+    Alert.alert('You press delete');
+  };
+
   return (
     <View style={{flexDirection: 'column'}}>
       <UIHeader
@@ -269,35 +267,18 @@ const Chat = (props: any) => {
         onPressRightIcon={() => Alert.alert('Menu button pressed')}
       />
 
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          paddingStart: 10,
-        }}>
-        <Text
-          style={{
-            color: 'black',
-            fontSize: 16,
-          }}>
-          6unread message
-        </Text>
-        <IconFacebookt
-          onPress={() => {
-            Alert.alert('You press delete');
-          }}
-        />
+      <View style={styles.head}>
+        <Text style={styles.text_head}>6 unread message</Text>
+        <IconFacebookt onPress={handle_icon} />
       </View>
 
       <FlatList
-        style={{backgroundColor: 'white'}}
+        style={styles.container_list}
         data={users}
         renderItem={({item}) => (
           <ChatItem
             onPress={() => {
               navigate('Messenger', {user: item});
-              console.log('hello');
             }}
             user={item}
             key={item.url}
@@ -310,4 +291,16 @@ const Chat = (props: any) => {
 
 export default Chat;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  head: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingStart: 10,
+  },
+  text_head: {
+    color: 'black',
+    fontSize: 16,
+  },
+  container_list: {backgroundColor: 'white'},
+});
