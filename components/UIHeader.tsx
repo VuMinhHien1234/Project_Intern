@@ -1,14 +1,22 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import React, {Component} from 'react';
 import colors from '../constants/colors';
+import IconArrowLeft from '../assets/icons/ic_arrow-left';
+type Props = {
+  text: string;
+  leftIcon: any;
+  rightIcon: any;
+  onPressLeftIcon: () => void;
+  onPressRightIcon: () => void;
+};
 
-const UIHeader = (props: any) => {
-  const {title, leftIcon, rightIcon, onPressLeftIcon, onPressRightIcon} = props;
+const UIHeader = (props: Props) => {
+  const {text, leftIcon, rightIcon, onPressLeftIcon, onPressRightIcon} = props;
+
   return (
-    <View>
-      <View style={styles.padding_top}></View>
-      <View style={styles.body}>
-        {/* Left icon */}
+    <View style={styles.container}>
+      <View style={styles.distance}></View>
+      <View style={styles.item}>
         {leftIcon ? (
           onPressLeftIcon ? (
             <TouchableOpacity onPress={onPressLeftIcon}>
@@ -20,8 +28,7 @@ const UIHeader = (props: any) => {
         ) : (
           <></>
         )}
-        <Text style={styles.title}>{title}</Text>
-        {/* Right icon */}
+        <Text style={styles.text_title}>{text}</Text>
         {rightIcon ? (
           onPressRightIcon ? (
             <TouchableOpacity onPress={onPressRightIcon}>
@@ -41,18 +48,27 @@ const UIHeader = (props: any) => {
 export default UIHeader;
 
 const styles = StyleSheet.create({
-  padding_top: {height: 40, backgroundColor: 'black'},
-  body: {
-    height: 55,
+  container: {
+    height: 100,
     backgroundColor: colors.primary,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
   },
-  title: {
-    fontSize: 16,
-    textAlign: 'center',
-    lineHeight: 45,
+  item: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  distance: {
+    height: 50,
+  },
+  text_title: {
+    fontStyle: 'normal',
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
+    fontSize: 25,
     color: 'white',
+    alignItems: 'center',
+    alignSelf: 'center',
+    textAlign: 'center',
+    justifyContent: 'center',
   },
 });

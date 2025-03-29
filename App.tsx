@@ -1,10 +1,10 @@
-import AppNavigation from './navigation/AppNavigation';
 import {StyleSheet, View} from 'react-native';
 import React, {useState} from 'react';
-import {FoodList, ProductGridView, WelcomeScreen} from './screen';
-import FoodItems from './screen/FoodList/FoodItems';
-import Setting from './screen/Settings';
-import UITab from './navigation/UITab';
+import Sprint2 from './screen/Sprint2/Sprint2';
+import Sprint3 from './screen/Sprint3/Practice3_1';
+import Practice3_1 from './screen/Sprint3/Practice3_1';
+import Practice3_2 from './screen/Sprint3/Practice3_2';
+import Sprint4 from './screen/Sprint4/Sprint4';
 
 const App = () => {
   return (
@@ -12,7 +12,10 @@ const App = () => {
       style={{
         flex: 1,
       }}>
-      <AppNavigation />
+      {/* <Practice3_2 /> */}
+      {/* <Sprint2 /> */}
+
+      <Sprint4 />
     </View>
   );
 };

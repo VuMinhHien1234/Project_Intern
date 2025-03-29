@@ -16,7 +16,11 @@
 
   export const IMAGE = {
     img_background: require('./img_welcome.jpg'),
-    img_computer: require('./img_computer.png')
+    img_computer: require('./img_computer.png'),
+    img_flagVietNam: require('./img_flagVietNam.png'),
+    img_nghiQuyet: require('./img_nghiquyet.png'),
+    img_nghiQuyet2: require('./img2_Sprint1.png'),
+    img_people:require('./img_people.png'),
   }
   
 
